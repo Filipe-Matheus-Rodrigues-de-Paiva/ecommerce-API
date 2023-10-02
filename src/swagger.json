@@ -1,0 +1,1469 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API para MarketPlace de automóveis",
+    "description": "Essa API tem como objetivo fornecer dados para um MarketPlace de automóveis.",
+    "contact": {
+      "name": "Filipe Matheus",
+      "email": "filipepaivinha@gmail.com"
+    },
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "identifier": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "termsOfService": "http://swagger.io/terms/",
+    "x-techs": ["NodeJs", "Express", "JWT", "Swagger", "TypeORM", "PostgreSQL"]
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/announcements": {
+      "post": {
+        "tags": ["Announcements"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Cadastrar um novo anúncio",
+        "description": "Essa rota é responsável por cadastrar um novo anúncio.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Announcement"
+              },
+              "examples": {
+                "announcement": {
+                  "value": {
+                    "brand": "Fiat",
+                    "model": "Uno",
+                    "year": 2010,
+                    "fueling": "Gasolina",
+                    "km": 100000,
+                    "color": "Vermelho",
+                    "fipe_price": "R$ 10.000,00",
+                    "description": "Carro em ótimo estado",
+                    "coverImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD",
+                    "images": [
+                      {
+                        "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Announcement"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "404": {
+            "description": "No active user found"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Announcements"],
+        "summary": "Listar todos os anúncios",
+        "description": "Essa rota é responsável por listar todos os anúncios.",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Announcement"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/announcements/{announcementId}": {
+      "get": {
+        "tags": ["Announcements"],
+        "summary": "Recuperar Anúncio por ID",
+        "description": "Esta rota permite recuperar informações detalhadas de um anúncio específico com base no seu ID.",
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "description": "O ID único do anúncio que você deseja recuperar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Announcement"
+                }
+              }
+            },
+            "examples": {
+              "success": {
+                "value": {
+                  "brand": "Fiat",
+                  "model": "Uno",
+                  "year": 2010,
+                  "fueling": "Gasolina",
+                  "km": 100000,
+                  "color": "Vermelho",
+                  "fipe_price": "R$ 10.000,00",
+                  "description": "Carro em ótimo estado",
+                  "coverImage": "https://www.example.com/cover-image.jpg",
+                  "images": [
+                    {
+                      "imageUrl": "https://www.example.com/image1.jpg"
+                    },
+                    {
+                      "imageUrl": "https://www.example.com/image2.jpg"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Announcement not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["Announcements"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Atualizar Anúncio por ID",
+        "description": "Esta rota permite atualizar um anúncio específico com base no seu ID.",
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "description": "O ID único do anúncio que você deseja atualizar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Announcement"
+              },
+              "examples": {
+                "announcement": {
+                  "value": {
+                    "brand": "Fiat",
+                    "model": "Uno",
+                    "year": 2011,
+                    "fueling": "Gasolina",
+                    "km": 95000,
+                    "color": "Azul",
+                    "fipe_price": "R$ 11.000,00",
+                    "description": "Carro em excelente estado",
+                    "coverImage": "https://www.example.com/new-cover-image.jpg",
+                    "images": [
+                      {
+                        "imageUrl": "https://www.example.com/new-image1.jpg"
+                      },
+                      {
+                        "imageUrl": "https://www.example.com/new-image2.jpg"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Announcement"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Announcements"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Excluir Anúncio por ID",
+        "description": "Esta rota permite excluir um anúncio específico com base no seu ID.",
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "description": "O ID único do anúncio que você deseja excluir.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/announcements/users/{userId}": {
+      "get": {
+        "tags": ["Announcements"],
+        "summary": "Listar Anúncios por Usuário",
+        "description": "Esta rota permite listar os anúncios de um usuário específico com base no seu ID de usuário.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "O ID único do usuário cujos anúncios serão listados.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Announcement"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Usuário não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Cadastrar um novo usuário",
+        "description": "Essa rota é responsável por cadastrar um novo usuário.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Users"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Filipe Matheus",
+                    "email": "filipepaivinha@gmail.com",
+                    "cpf": "123.456.789-00",
+                    "phone_number": "84996777578",
+                    "date_of_birth": "1995-12-12",
+                    "description": "Filipe, o ávido colecionador de carros lamborghini",
+                    "address": {
+                      "cep": "59064-120",
+                      "street": "Rua dos Bobos",
+                      "number": 4588,
+                      "complement": "Apto 101",
+                      "city": "Natal",
+                      "state": "RN"
+                    },
+                    "account_type": "anunciante",
+                    "password": "123456",
+                    "confirm": "123456"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                    "name": "Filipe Matheus",
+                    "email": "filipepaivinha@gmail.com",
+                    "cpf": "123.456.789-00",
+                    "phone_number": "84996777578",
+                    "date_of_birth": "1995-12-12",
+                    "description": "Filipe, o ávido colecionador de carros lamborghini",
+                    "address": {
+                      "cep": "59064-120",
+                      "street": "Rua dos Bobos",
+                      "number": 4588,
+                      "complement": "Apto 101",
+                      "city": "Natal",
+                      "state": "RN"
+                    },
+                    "account_type": "anunciante"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "name": "Filipe Matheus",
+                    "email": "filipepaivinha@gmail.com",
+                    "cpf": "123.456.789-00",
+                    "phone_number": "84996777578",
+                    "date_of_birth": "1995-12-12",
+                    "description": "Filipe, o ávido colecionador de carros lamborghini",
+                    "address": {
+                      "cep": "59064-120",
+                      "street": "Rua dos Bobos",
+                      "number": 4588,
+                      "complement": "Apto 101",
+                      "city": "Natal",
+                      "state": "RN"
+                    }
+                  }
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Chaves faltando ou inválidas"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Fazer Login",
+        "description": "Esta rota permite que os usuários façam login na aplicação e recebam um token JWT para autenticação.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginCredentials"
+              },
+              "examples": {
+                "loginCredentials": {
+                  "value": {
+                    "email": "usuario@example.com",
+                    "password": "senha123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Credenciais inválidas"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "patch": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Atualizar Usuário por ID",
+        "description": "Esta rota permite atualizar os detalhes de um usuário existente com base no seu ID.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "O ID único do usuário que você deseja atualizar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "example": {
+                  "name": "Filipe Matheus Rodrigues de Paiva",
+                  "email": "filipepaivinha@gmail.com",
+                  "cpf": "123.456.789-00",
+                  "phone_number": "84996770000"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                    "name": "Filipe Matheus Rodrigues de Paiva",
+                    "email": "filipepaivinha@gmail.com",
+                    "cpf": "123.456.789-00",
+                    "phone_number": "84996770000",
+                    "date_of_birth": "1995-12-12",
+                    "description": "Filipe, o ávido colecionador de carros lamborghini",
+                    "account_type": "anunciante",
+                    "password": "$2a$10$AYXUvHEK4RzQis.KyXTBeeIx2wl4AyhUvC744J67GlmBzfofFBrX6",
+                    "confirm": "$2a$10$lUfGg2mehyhxTS8T3GbGS.5fDSlvvbgpwz.4O0bw.HKYIZMIsY/KC"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Usuário não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Excluir Usuário por ID",
+        "description": "Esta rota permite excluir um usuário existente com base no seu ID.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "O ID único do usuário que você deseja excluir.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Usuário não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/address/:addressId": {
+      "patch": {
+        "tags": ["Address"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Atualizar Endereço por ID",
+        "description": "Esta rota permite atualizar os detalhes de um endereço existente com base no seu ID.",
+        "parameters": [
+          {
+            "name": "addressId",
+            "in": "path",
+            "description": "O ID único do endereço que você deseja atualizar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "example": {
+                  "cep": "59064-120",
+                  "street": "Rua dos Bobos",
+                  "number": 4588,
+                  "complement": "Apto 101",
+                  "city": "Natal",
+                  "state": "RN"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                    "cep": "59064-120",
+                    "street": "Rua dos Bobos",
+                    "number": 4588,
+                    "complement": "Apto 101",
+                    "city": "Natal",
+                    "state": "RN"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "O usuário não tem permissão para acessar este recurso"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/comments/announcements/{announcementId}": {
+      "post": {
+        "tags": ["Comments"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Criar Comentário em Anúncio",
+        "description": "Esta rota permite que os usuários criem um comentário em um anúncio específico com base no ID do anúncio.",
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "description": "O ID único do anúncio no qual deseja criar um comentário.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Comment"
+              },
+              "examples": {
+                "comment": {
+                  "value": {
+                    "text": "Este é um ótimo anúncio!"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Anúncio não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Comments"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Listar Comentários de um Anúncio",
+        "description": "Esta rota permite listar todos os comentários de um anúncio específico com base no ID do anúncio.",
+        "parameters": [
+          {
+            "name": "announcementId",
+            "in": "path",
+            "description": "O ID único do anúncio para o qual você deseja listar os comentários.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comment"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Anúncio não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/comments/{commentId}": {
+      "patch": {
+        "tags": ["Comments"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Atualizar Comentário",
+        "description": "Esta rota permite que os usuários atualizem um comentário específico com base no ID do comentário.",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "O ID único do comentário que você deseja atualizar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Comment"
+              },
+              "examples": {
+                "comment": {
+                  "value": {
+                    "text": "Este é o novo texto do comentário."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Comment"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Comentário não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Comments"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "Excluir Comentário",
+        "description": "Esta rota permite que os usuários excluam um comentário específico com base no ID do comentário.",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "description": "O ID único do comentário que você deseja excluir.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Vendedor só pode excluir comentários em seus próprios anúncios"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Token JWT inválido ou ausente"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "O usuário não tem permissão para acessar este recurso"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "error": {
+                    "value": {
+                      "message": "Comentário não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Announcement": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string"
+          },
+          "model": {
+            "type": "string"
+          },
+          "year": {
+            "type": "number"
+          },
+          "fueling": {
+            "type": "string"
+          },
+          "km": {
+            "type": "number"
+          },
+          "color": {
+            "type": "string"
+          },
+          "fipe_price": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "coverImage": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Users": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          },
+          "date_of_birth": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "cep": {
+                "type": "string"
+              },
+              "street": {
+                "type": "string"
+              },
+              "number": {
+                "type": "number"
+              },
+              "complement": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "state": {
+                "type": "string"
+              }
+            }
+          },
+          "account_type": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "password_confirmation": {
+            "type": "string"
+          }
+        }
+      },
+      "LoginCredentials": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "AuthResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "JWT Token"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          },
+          "timeEllapsed": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
