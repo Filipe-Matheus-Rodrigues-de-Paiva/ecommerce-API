@@ -60,10 +60,10 @@ const userSchemaRequest = z.object({
     .string()
     .max(150)
     .min(8, "A senha necessita de 8 digitos no mínimo")
-    .regex(/(?=.*?[A-Z])/)
-    .regex(/(?=.*?[a-z])/)
-    .regex(/(?=.*?[0-9])/)
-    .regex(/(?=.*?[\W])/)
+    .regex(/(?=.*?[A-Z])/, "É preciso pelo menos uma letra maiúscula")
+    .regex(/(?=.*?[a-z])/, "É preciso pelo menos uma letra minúscula")
+    .regex(/(?=.*?[0-9])/, "É preciso pelo menos um número")
+    .regex(/(?=.*?[\W])/, "É preciso pelo menos um caractere especial")
     .min(1, "É preciso pelo menos um caractere especial"),
   confirm: z.string().min(1, "Confirme sua senha"),
 });

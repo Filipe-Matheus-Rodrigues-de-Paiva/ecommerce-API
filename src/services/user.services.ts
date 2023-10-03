@@ -49,7 +49,7 @@ export class UserService {
 
     const updatedUser = await userRepo.save({ ...foundUser, ...payload });
 
-    return updatedUser;
+    return userSchemaReturn.parse(updatedUser);
   }
 
   async destroy(userId: string): Promise<Response | void> {
