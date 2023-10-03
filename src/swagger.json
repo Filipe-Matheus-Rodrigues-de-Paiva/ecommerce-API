@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "API para MarketPlace de automóveis",
-    "description": "Essa API tem como objetivo fornecer dados para um MarketPlace de automóveis.",
+    "title": "API para comercio online de automóveis",
+    "description": "Essa API tem como objetivo fornecer dados para um comercio online de automóveis.",
     "contact": {
       "name": "Filipe Matheus",
       "email": "filipepaivinha@gmail.com"
@@ -479,8 +479,8 @@
                       "state": "RN"
                     },
                     "account_type": "anunciante",
-                    "password": "123456",
-                    "confirm": "123456"
+                    "password": "123456Wfrk#",
+                    "confirm": "123456Wfrk#"
                   }
                 }
               }
@@ -503,7 +503,7 @@
                     "description": "Filipe, o ávido colecionador de carros lamborghini",
                     "address": {
                       "cep": "59064-120",
-                      "street": "Rua dos Bobos",
+                      "street": "Rua dos Lobos",
                       "number": 4588,
                       "complement": "Apto 101",
                       "city": "Natal",
@@ -529,7 +529,7 @@
                     "description": "Filipe, o ávido colecionador de carros lamborghini",
                     "address": {
                       "cep": "59064-120",
-                      "street": "Rua dos Bobos",
+                      "street": "Rua dos Lobos",
                       "number": 4588,
                       "complement": "Apto 101",
                       "city": "Natal",

@@ -19,13 +19,13 @@ export class UserService {
     const foundUserByEmail = await userRepo.findOneBy({ email: payload.email });
 
     if (foundUser || foundUserByEmail) {
-      throw new AppError("User already exists", 409);
+      throw new AppError("Usuário já existe", 409);
     }
 
     // verificar se password = confirm
 
     if (payload.password !== payload.confirm) {
-      throw new AppError("passwords do not match", 400);
+      throw new AppError("Senhas não batem", 400);
     }
 
     const newAddress = addressRepo.create(address);
