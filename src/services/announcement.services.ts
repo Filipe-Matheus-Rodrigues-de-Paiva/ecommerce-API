@@ -44,7 +44,7 @@ export class AnnouncementService {
     const announcementRepository = AppDataSource.getRepository(Announcement);
 
     const announcements = await announcementRepository.find({
-      relations: { images: true },
+      relations: { images: true, user: true },
     });
 
     return announcements;
