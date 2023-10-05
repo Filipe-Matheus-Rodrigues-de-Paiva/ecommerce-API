@@ -12,7 +12,7 @@
     "emitDecoratorMetadata": true,
     "strictPropertyInitialization": false,
     "resolveJsonModule": true,
-    "outDir": "dist"
+    "outDir": "./dist"
   },
   "include": ["src", "api/*.ts"],
   "exclude": ["node_modules"]
