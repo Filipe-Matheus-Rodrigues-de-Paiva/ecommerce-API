@@ -17,10 +17,12 @@ export class Comment {
   @Column({ type: "text" })
   text: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, { onDelete: "CASCADE" })
   user: User;
 
-  @ManyToOne(() => Announcement, (announcement) => announcement.comments)
+  @ManyToOne(() => Announcement, (announcement) => announcement.comments, {
+    onDelete: "CASCADE",
+  })
   announcement: Announcement;
 
   @CreateDateColumn()
