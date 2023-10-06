@@ -94,9 +94,14 @@ const userSchemaUpdateRequest = userSchemaRequest.omit({
   address: true,
 });
 
+const userSchemaUpdateReturn = userSchemaReturn.omit({
+  address: true,
+});
+
 export {
   userSchema,
   userSchemaRequest,
   userSchemaReturn,
   userSchemaUpdateRequest,
+  userSchemaUpdateReturn,
 };

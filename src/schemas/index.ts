@@ -9,6 +9,7 @@ import {
   userSchemaRequest,
   userSchemaReturn,
   userSchemaUpdateRequest,
+  userSchemaUpdateReturn,
 } from "./user.schema";
 
 import { sessionSchema } from "./session.schemas";
@@ -26,4 +27,5 @@ export default {
   sessionSchema,
   commentSchema,
   commentPayloadSchema,
+  userSchemaUpdateReturn,
 };

@@ -2,7 +2,10 @@ import { DeepPartial } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { Address, User } from "../entities";
 import AppError from "../error";
-import { userSchemaReturn } from "../schemas/user.schema";
+import {
+  userSchemaReturn,
+  userSchemaUpdateReturn,
+} from "../schemas/user.schema";
 import { TUser, TUserRequest } from "../types/user.types";
 
 export class UserService {
@@ -40,7 +43,7 @@ export class UserService {
   async update(
     payload: DeepPartial<Omit<TUserRequest, "address">>,
     userId: string
-  ): Promise<TUser> {
+  ): Promise<Omit<TUser, "address">> {
     const userRepo = AppDataSource.getRepository(User);
 
     const foundUser = await userRepo.findOneBy({ id: userId });
@@ -49,7 +52,7 @@ export class UserService {
 
     const updatedUser = await userRepo.save({ ...foundUser, ...payload });
 
-    return userSchemaReturn.parse(updatedUser);
+    return userSchemaUpdateReturn.parse(updatedUser);
   }
 
   async destroy(userId: string): Promise<Response | void> {

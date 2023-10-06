@@ -45,8 +45,8 @@
                     "brand": "Fiat",
                     "model": "Uno",
                     "year": 2010,
-                    "fueling": "Gasolina",
-                    "km": 100000,
+                    "fueling": "gasolina",
+                    "kilometers": 100000,
                     "color": "Vermelho",
                     "fipe_price": "R$ 10.000,00",
                     "description": "Carro em ótimo estado",
@@ -468,7 +468,7 @@
                     "email": "filipepaivinha@gmail.com",
                     "cpf": "123.456.789-00",
                     "phone_number": "84996777578",
-                    "date_of_birth": "1995-12-12",
+                    "date_birth": "1995-12-12",
                     "description": "Filipe, o ávido colecionador de carros lamborghini",
                     "address": {
                       "cep": "59064-120",
@@ -499,7 +499,7 @@
                     "email": "filipepaivinha@gmail.com",
                     "cpf": "123.456.789-00",
                     "phone_number": "84996777578",
-                    "date_of_birth": "1995-12-12",
+                    "date_birth": "1995-12-12",
                     "description": "Filipe, o ávido colecionador de carros lamborghini",
                     "address": {
                       "cep": "59064-120",
@@ -567,8 +567,8 @@
               "examples": {
                 "loginCredentials": {
                   "value": {
-                    "email": "usuario@example.com",
-                    "password": "senha123"
+                    "email": "filipepaivinha@gmail.com",
+                    "password": "123456Wfrk#"
                   }
                 }
               }
@@ -659,7 +659,7 @@
                     "email": "filipepaivinha@gmail.com",
                     "cpf": "123.456.789-00",
                     "phone_number": "84996770000",
-                    "date_of_birth": "1995-12-12",
+                    "date_birth": "1995-12-12",
                     "description": "Filipe, o ávido colecionador de carros lamborghini",
                     "account_type": "anunciante",
                     "password": "$2a$10$AYXUvHEK4RzQis.KyXTBeeIx2wl4AyhUvC744J67GlmBzfofFBrX6",
@@ -1331,7 +1331,7 @@
           "fueling": {
             "type": "string"
           },
-          "km": {
+          "kilometers": {
             "type": "number"
           },
           "color": {
@@ -1348,8 +1348,13 @@
           },
           "images": {
             "type": "array",
-            "items": {
-              "type": "string"
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "imageUrl": {
+                "type": "string"
+              }
             }
           }
         }
@@ -1369,7 +1374,7 @@
           "phone_number": {
             "type": "string"
           },
-          "date_of_birth": {
+          "date_birth": {
             "type": "string"
           },
           "description": {

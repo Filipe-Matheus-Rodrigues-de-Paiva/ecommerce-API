@@ -3,6 +3,7 @@ import {
   userSchemaRequest,
   userSchemaReturn,
   userSchemaUpdateRequest,
+  userSchemaUpdateReturn,
 } from "../schemas/user.schema";
 import { DeepPartial } from "typeorm";
 
@@ -12,4 +13,6 @@ type TUserRequest = z.infer<typeof userSchemaRequest>;
 
 type TUserUpdateRequest = DeepPartial<typeof userSchemaUpdateRequest>;
 
-export { TUser, TUserRequest, TUserUpdateRequest };
+type TUserUpdateReturn = z.infer<typeof userSchemaUpdateReturn>;
+
+export { TUser, TUserRequest, TUserUpdateRequest, TUserUpdateReturn };
