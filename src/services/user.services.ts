@@ -3,6 +3,7 @@ import { AppDataSource } from "../data-source";
 import { Address, User } from "../entities";
 import AppError from "../error";
 import {
+  userRetrieveSchema,
   userSchemaReturn,
   userSchemaUpdateReturn,
 } from "../schemas/user.schema";
@@ -40,10 +41,20 @@ export class UserService {
     return userSchemaReturn.parse(newUser);
   }
 
+  async retrieve(userId: string): Promise<Omit<TUser, "address">> {
+    const userRepo = AppDataSource.getRepository(User);
+
+    const loggedUser = await userRepo.findOneBy({ id: userId });
+
+    if (!loggedUser) throw new AppError("User not found", 404);
+
+    return userRetrieveSchema.parse(loggedUser);
+  }
+
   async update(
     payload: DeepPartial<Omit<TUserRequest, "address">>,
     userId: string
-  ): Promise<Omit<TUser, "address">> {
+  ): Promise<any> {
     const userRepo = AppDataSource.getRepository(User);
 
     const foundUser = await userRepo.findOneBy({ id: userId });

@@ -10,6 +10,11 @@ export class UserController {
     return response.status(201).json(newUser);
   }
 
+  async retrieve(request: Request, response: Response): Promise<Response> {
+    const user = await this.userService.retrieve(request.params.userId);
+    return response.status(200).json(user);
+  }
+
   async update(request: Request, response: Response): Promise<Response> {
     const updatedUser = await this.userService.update(
       request.body,

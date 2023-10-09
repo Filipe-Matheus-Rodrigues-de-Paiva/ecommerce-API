@@ -22,7 +22,7 @@ export class SessionService {
     if (!passwordMatch) throw new AppError("Invalid credentials", 401);
 
     const token: string = sign(
-      { email: user.email, account_type: user.account_type },
+      { email: user.email, account_type: user.account_type, name: user.name },
       process.env.SECRET_KEY!,
       { subject: user.id.toString(), expiresIn: "24h" }
     );

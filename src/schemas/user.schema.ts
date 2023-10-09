@@ -90,6 +90,10 @@ const userSchemaReturn = z.object({
   }),
 });
 
+const userRetrieveSchema = userSchemaReturn.omit({
+  address: true,
+});
+
 const userSchemaUpdateRequest = userSchemaRequest.omit({
   address: true,
 });
@@ -104,4 +108,5 @@ export {
   userSchemaReturn,
   userSchemaUpdateRequest,
   userSchemaUpdateReturn,
+  userRetrieveSchema,
 };

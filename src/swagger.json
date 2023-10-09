@@ -69,7 +69,23 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "$ref": "#/components/schemas/Announcement"
+                  "example": {
+                    "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                    "brand": "Fiat",
+                    "model": "Uno",
+                    "year": 2010,
+                    "fueling": "gasolina",
+                    "kilometers": 100000,
+                    "color": "Vermelho",
+                    "fipe_price": "R$ 10.000,00",
+                    "description": "Carro em ótimo estado",
+                    "coverImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD",
+                    "images": [
+                      {
+                        "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e"
+                      }
+                    ]
+                  }
                 }
               }
             }
@@ -131,7 +147,32 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Announcement"
+                    "example": {
+                      "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                      "brand": "Fiat",
+                      "model": "Uno",
+                      "year": 2010,
+                      "fueling": "gasolina",
+                      "kilometers": 100000,
+                      "color": "Vermelho",
+                      "fipe_price": "R$ 10.000,00",
+                      "description": "Carro em ótimo estado",
+                      "coverImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD",
+                      "user": {
+                        "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                        "name": "Filipe Matheus Rodrigues de Paiva",
+                        "email": "filipepaivinha@gmail.com",
+                        "phone_number": "84996770000",
+                        "date_birth": "30/05/1999",
+                        "description": "Filipe, o ávido colecionador de carros lamborghini",
+                        "account_type": "anunciante"
+                      },
+                      "images": [
+                        {
+                          "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e"
+                        }
+                      ]
+                    }
                   }
                 }
               }
@@ -168,30 +209,41 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Announcement"
-                }
-              }
-            },
-            "examples": {
-              "success": {
-                "value": {
-                  "brand": "Fiat",
-                  "model": "Uno",
-                  "year": 2010,
-                  "fueling": "Gasolina",
-                  "km": 100000,
-                  "color": "Vermelho",
-                  "fipe_price": "R$ 10.000,00",
-                  "description": "Carro em ótimo estado",
-                  "coverImage": "https://www.example.com/cover-image.jpg",
-                  "images": [
-                    {
-                      "imageUrl": "https://www.example.com/image1.jpg"
+                  "example": {
+                    "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                    "brand": "Fiat",
+                    "model": "Uno",
+                    "year": 2010,
+                    "fueling": "gasolina",
+                    "kilometers": 100000,
+                    "color": "Vermelho",
+                    "fipe_price": "R$ 10.000,00",
+                    "description": "Carro em ótimo estado",
+                    "coverImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD",
+                    "user": {
+                      "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                      "name": "Filipe Matheus Rodrigues de Paiva",
+                      "email": "filipepaivinha@gmail.com",
+                      "phone_number": "84996770000",
+                      "date_birth": "30/05/1999",
+                      "description": "Filipe, o ávido colecionador de carros lamborghini",
+                      "account_type": "anunciante"
                     },
-                    {
-                      "imageUrl": "https://www.example.com/image2.jpg"
-                    }
-                  ]
+                    "images": [
+                      {
+                        "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                        "ImageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD"
+                      }
+                    ],
+                    "comments": [
+                      {
+                        "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                        "text": "Carro em ótimo estado",
+                        "createAt": "2021-08-23T00:00:00.000Z",
+                        "updatedAt": "2021-08-23T00:00:00.000Z"
+                      }
+                    ]
+                  }
                 }
               }
             }
@@ -244,31 +296,17 @@
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Announcement"
-              },
-              "examples": {
-                "announcement": {
-                  "value": {
-                    "brand": "Fiat",
-                    "model": "Uno",
-                    "year": 2011,
-                    "fueling": "Gasolina",
-                    "km": 95000,
-                    "color": "Azul",
-                    "fipe_price": "R$ 11.000,00",
-                    "description": "Carro em excelente estado",
-                    "coverImage": "https://www.example.com/new-cover-image.jpg",
-                    "images": [
-                      {
-                        "imageUrl": "https://www.example.com/new-image1.jpg"
-                      },
-                      {
-                        "imageUrl": "https://www.example.com/new-image2.jpg"
-                      }
-                    ]
+              "example": {
+                "brand": "Fiat",
+                "model": "Uno",
+                "year": 2010,
+                "description": "Carro em ótimo estado",
+                "coverImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD",
+                "images": [
+                  {
+                    "imageUrl": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig"
                   }
-                }
+                ]
               }
             }
           }
@@ -278,8 +316,22 @@
             "description": "OK",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Announcement"
+                "example": {
+                  "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                  "brand": "Fiat",
+                  "model": "Uno",
+                  "year": 2010,
+                  "fueling": "gasolina",
+                  "kilometers": 100000,
+                  "color": "Vermelho",
+                  "fipe_price": "R$ 10.000,00",
+                  "description": "Carro em ótimo estado",
+                  "coverImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD",
+                  "images": [
+                    {
+                      "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e"
+                    }
+                  ]
                 }
               }
             }
@@ -420,7 +472,26 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Announcement"
+                    "example": {
+                      "id": "e3fb00b3-a124-44f7-bd5a-f0e152b62015",
+                      "name": "Filipe Paiva",
+                      "email": "filipe@gmail.com",
+                      "account_type": "anunciante",
+                      "announcements": [
+                        {
+                          "id": "2561e774-db8a-48e9-852e-4cd6b79fe6f7",
+                          "brand": "Fiat",
+                          "model": "Uno",
+                          "year": 2010,
+                          "fueling": "gasolina",
+                          "kilometers": 100000,
+                          "color": "Vermelho",
+                          "fipe_price": "R$ 10.000,00",
+                          "description": "Carro em ótimo estado",
+                          "coverImage": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.webmotors.com.br%2Fcarros%2Festoque%2Ffiat%2Funo%3Festadocidade%3Destoque%26marca1%3DFIAT%26modelo1%3DUNO%26anomodeloinicial%3D2010%26anomodelofinal%3D2010%26precominimo%3D10000%26precomaximo%3D10000%26tipo%3Dcarros%26anunciante%3Dconcessionaria%257Cloja%257Cpessoa-fisica%26registropj%3Dtrue&psig=AOvVaw0QZ2Z3Q4Z2Q8Z2Z3Q4Z2Q8&ust=1629783580000000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCJjQ4Z2Z3_QCFQAAAAAdAAAAABAD"
+                        }
+                      ]
+                    }
                   }
                 }
               }
@@ -468,11 +539,11 @@
                     "email": "filipepaivinha@gmail.com",
                     "cpf": "123.456.789-00",
                     "phone_number": "84996777578",
-                    "date_birth": "1995-12-12",
+                    "date_birth": "30/05/1999",
                     "description": "Filipe, o ávido colecionador de carros lamborghini",
                     "address": {
                       "cep": "59064-120",
-                      "street": "Rua dos Bobos",
+                      "street": "Rua dos Lobos",
                       "number": 4588,
                       "complement": "Apto 101",
                       "city": "Natal",
@@ -659,11 +730,9 @@
                     "email": "filipepaivinha@gmail.com",
                     "cpf": "123.456.789-00",
                     "phone_number": "84996770000",
-                    "date_birth": "1995-12-12",
+                    "date_birth": "30/05/1999",
                     "description": "Filipe, o ávido colecionador de carros lamborghini",
-                    "account_type": "anunciante",
-                    "password": "$2a$10$AYXUvHEK4RzQis.KyXTBeeIx2wl4AyhUvC744J67GlmBzfofFBrX6",
-                    "confirm": "$2a$10$lUfGg2mehyhxTS8T3GbGS.5fDSlvvbgpwz.4O0bw.HKYIZMIsY/KC"
+                    "account_type": "anunciante"
                   }
                 }
               }
@@ -799,6 +868,62 @@
                       "message": "Usuário não encontrado"
                     }
                   }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "Recuperar Usuário por ID",
+        "description": "Esta rota permite recuperar informações detalhadas de um usuário específico com base no seu ID.",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "O ID único do usuário que você deseja recuperar.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "id": "bad56887-5b1a-4b7e-9f0a-0e9f1b7b1a0e",
+                    "name": "Filipe Matheus Rodrigues de Paiva",
+                    "email": "filipepaivinha@gmail.com",
+                    "cpf": "123.456.789-00",
+                    "phone_number": "84996770000",
+                    "date_birth": "30/05/1999",
+                    "description": "Filipe, o ávido colecionador de carros lamborghini",
+                    "account_type": "anunciante"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Usuário não encontrado"
                 }
               }
             }
@@ -1041,9 +1166,30 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Comment"
-                  }
+                  "example": [
+                    {
+                      "id": "379c9100-58ce-49ce-a558-2d21f7c2e67b",
+                      "text": "Prefiro lamborghini!",
+                      "createdAt": "2023-10-07T00:37:01.611Z",
+                      "updatedAt": "2023-10-07T00:37:01.611Z",
+                      "user": {
+                        "name": "Filipe Matheus",
+                        "email": "filipepaivinha@gmail.com"
+                      },
+                      "timeElapsed": "menos de um minuto atrás"
+                    },
+                    {
+                      "id": "379c9100-58ce-49ce-a558-2d21f7c2e67b",
+                      "text": "Prefiro lamborghini!",
+                      "createdAt": "2023-10-07T00:37:01.611Z",
+                      "updatedAt": "2023-10-07T00:37:01.611Z",
+                      "user": {
+                        "name": "Filipe Matheus",
+                        "email": "filipepaivinha@gmail.com"
+                      },
+                      "timeElapsed": "menos de um minuto atrás"
+                    }
+                  ]
                 }
               }
             }
@@ -1457,7 +1603,7 @@
               }
             }
           },
-          "timeEllapsed": {
+          "timeElapsed": {
             "type": "string"
           }
         }

@@ -9,6 +9,8 @@ userRoutes.post("", middlewares.validateBody(userSchemaRequest), (req, res) =>
   userController.create(req, res)
 );
 
+userRoutes.get("/:userId", (req, res) => userController.retrieve(req, res));
+
 userRoutes.patch(
   "/:userId",
   middlewares.verifyToken,

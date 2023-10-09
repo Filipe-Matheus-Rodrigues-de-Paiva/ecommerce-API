@@ -6,6 +6,7 @@ import { commentSchema } from "../schemas/comment.schema";
 import { TComment, TCommentRequest } from "../types";
 import { DeepPartial } from "typeorm";
 import { UserType } from "../entities/user.entity";
+import { ptBR } from "date-fns/locale";
 
 interface ICreatedComment {
   comment: TComment;
@@ -14,7 +15,10 @@ interface ICreatedComment {
 
 export class CommentService {
   private calculateTimeElapsed(comment: Comment): string {
-    return formatDistanceToNow(comment.createdAt, { addSuffix: true });
+    return formatDistanceToNow(comment.updatedAt, {
+      addSuffix: true,
+      locale: ptBR,
+    });
   }
 
   async create(
@@ -51,28 +55,41 @@ export class CommentService {
 
   async read(announcementId: string): Promise<any> {
     const announcementRepo = AppDataSource.getRepository(Announcement);
+    const commentRepo = AppDataSource.getRepository(Comment);
 
     const foundAnnouncement = await announcementRepo.findOne({
       where: { id: announcementId },
-      relations: { comments: true },
+      relations: { comments: true, user: true },
     });
 
     if (!foundAnnouncement) throw new AppError("Announcement not found", 404);
 
-    const comments = foundAnnouncement.comments.map((comment) => {
+    const comments = await commentRepo.find({
+      where: { announcement: { id: foundAnnouncement.id } },
+      relations: { user: true },
+      select: {
+        id: true,
+        text: true,
+        createdAt: true,
+        updatedAt: true,
+        user: { name: true, email: true },
+      },
+    });
+
+    const commentsWithTimeElapsed = comments.map((comment) => {
       const timeElapsed = this.calculateTimeElapsed(comment);
 
       return { ...comment, timeElapsed };
     });
 
-    return comments;
+    return commentsWithTimeElapsed;
   }
 
   async update(
     payload: DeepPartial<TCommentRequest>,
     commentId: string,
     userId: string
-  ): Promise<TComment | null> {
+  ): Promise<any> {
     const commentRepo = AppDataSource.getRepository(Comment);
     const userRepo = AppDataSource.getRepository(User);
 
@@ -93,7 +110,10 @@ export class CommentService {
 
     await commentRepo.save(comment);
 
-    return commentSchema.parse(comment);
+    return {
+      comment: commentSchema.parse(comment),
+      timeElapsed: this.calculateTimeElapsed(comment),
+    };
   }
 
   async destroy(commentId: string, userId: string): Promise<Response | void> {
