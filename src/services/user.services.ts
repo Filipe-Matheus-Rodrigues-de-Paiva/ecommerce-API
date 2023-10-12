@@ -8,6 +8,7 @@ import {
   userSchemaUpdateReturn,
 } from "../schemas/user.schema";
 import { TUser, TUserRequest } from "../types/user.types";
+import { hash } from "bcryptjs";
 
 export class UserService {
   async create({ address, ...payload }: TUserRequest): Promise<TUser> {
@@ -41,14 +42,28 @@ export class UserService {
     return userSchemaReturn.parse(newUser);
   }
 
-  async retrieve(userId: string): Promise<Omit<TUser, "address">> {
+  async retrieve(userId: string): Promise<TUser> {
     const userRepo = AppDataSource.getRepository(User);
 
-    const loggedUser = await userRepo.findOneBy({ id: userId });
+    const loggedUser = await userRepo.findOne({
+      where: { id: userId },
+      relations: { address: true },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        cpf: true,
+        phone_number: true,
+        date_birth: true,
+        description: true,
+        account_type: true,
+        address: { id: true, street: true, city: true, state: true },
+      },
+    });
 
     if (!loggedUser) throw new AppError("User not found", 404);
 
-    return userRetrieveSchema.parse(loggedUser);
+    return loggedUser;
   }
 
   async update(
@@ -60,6 +75,10 @@ export class UserService {
     const foundUser = await userRepo.findOneBy({ id: userId });
 
     if (!foundUser) throw new AppError("User not found", 404);
+
+    if (payload.password) {
+      payload.password = await hash(payload.password, 10);
+    }
 
     const updatedUser = await userRepo.save({ ...foundUser, ...payload });
 

@@ -12,10 +12,8 @@ commentRoutes.post(
   (req, res) => commentController.create(req, res)
 );
 
-commentRoutes.get(
-  "/announcements/:announcementId",
-  middlewares.verifyToken,
-  (req, res) => commentController.read(req, res)
+commentRoutes.get("/announcements/:announcementId", (req, res) =>
+  commentController.read(req, res)
 );
 
 commentRoutes.patch("/:commentId", middlewares.verifyToken, (req, res) =>

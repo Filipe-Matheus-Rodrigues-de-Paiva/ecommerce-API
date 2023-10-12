@@ -4,7 +4,7 @@ import middlewares from "../middlewares";
 
 const addressRoutes: Router = Router();
 
-addressRoutes.patch("", middlewares.verifyToken, (req, res) =>
+addressRoutes.patch("/:addressId", middlewares.verifyToken, (req, res) =>
   addressController.update(req, res)
 );
 

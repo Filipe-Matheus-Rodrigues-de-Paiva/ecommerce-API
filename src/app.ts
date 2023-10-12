@@ -12,7 +12,7 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/announcements", routes.announcementRoutes);
 app.use("/users", routes.userRoutes);
-app.use("/address/:addressId", routes.addressRoutes);
+app.use("/address", routes.addressRoutes);
 app.use("/login", routes.sessionRoutes);
 app.use("/comments", routes.commentRoutes);
 

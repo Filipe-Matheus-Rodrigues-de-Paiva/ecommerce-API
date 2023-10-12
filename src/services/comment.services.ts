@@ -119,6 +119,7 @@ export class CommentService {
   async destroy(commentId: string, userId: string): Promise<Response | void> {
     const commentRepo = AppDataSource.getRepository(Comment);
     const userRepo = AppDataSource.getRepository(User);
+    const announcementRepo = AppDataSource.getRepository(Announcement);
 
     const comment = await commentRepo.findOne({
       where: {
@@ -136,20 +137,19 @@ export class CommentService {
 
     const user = await userRepo.findOneBy({ id: userId });
 
-    if (user?.account_type === UserType.ANUNCIANTE) {
-      if (comment.announcement.user.id === userId) {
-        await commentRepo.remove(comment);
-      } else {
-        throw new AppError(
-          "Seller can only delete comments of his/her own announcements",
-          400
-        );
-      }
-    } else {
-      if (comment.user.id !== userId) {
-        throw new AppError("Comment does not belong to this user!");
-      }
+    const foundAnnouncement = await announcementRepo.findOne({
+      where: { id: comment.announcement.id },
+      relations: { user: true },
+    });
 
+    if (
+      user?.account_type === UserType.ANUNCIANTE &&
+      foundAnnouncement?.user.id === userId
+    ) {
+      await commentRepo.remove(comment);
+    } else if (comment.user.id !== userId) {
+      throw new AppError("Comment does not belong to this user!");
+    } else {
       await commentRepo.remove(comment);
     }
   }
