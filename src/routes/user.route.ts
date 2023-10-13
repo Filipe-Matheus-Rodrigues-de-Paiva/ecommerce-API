@@ -18,6 +18,8 @@ userRoutes.patch(
   (req, res) => userController.update(req, res)
 );
 
+userRoutes.get("", (req, res) => userController.read(req, res));
+
 userRoutes.delete(
   "/:userId",
   middlewares.verifyToken,

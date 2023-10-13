@@ -85,6 +85,14 @@ export class CommentService {
     return commentsWithTimeElapsed;
   }
 
+  async readAll(): Promise<Comment[]> {
+    const commentRepo = AppDataSource.getRepository(Comment);
+
+    const comments = await commentRepo.find();
+
+    return comments;
+  }
+
   async update(
     payload: DeepPartial<TCommentRequest>,
     commentId: string,

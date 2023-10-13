@@ -66,6 +66,16 @@ export class UserService {
     return loggedUser;
   }
 
+  async read(): Promise<TUser[]> {
+    const userRepo = AppDataSource.getRepository(User);
+
+    const users = await userRepo.find();
+
+    const sellers = users.filter((user) => user.account_type === "anunciante");
+
+    return sellers;
+  }
+
   async update(
     payload: DeepPartial<Omit<TUserRequest, "address">>,
     userId: string

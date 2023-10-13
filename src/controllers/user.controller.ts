@@ -15,6 +15,11 @@ export class UserController {
     return response.status(200).json(user);
   }
 
+  async read(request: Request, response: Response): Promise<Response> {
+    const users = await this.userService.read();
+    return response.status(200).json(users);
+  }
+
   async update(request: Request, response: Response): Promise<Response> {
     const updatedUser = await this.userService.update(
       request.body,
