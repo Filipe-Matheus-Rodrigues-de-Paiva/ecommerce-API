@@ -35,19 +35,4 @@ export class UserController {
     await this.userService.destroy(request.params.userId);
     return response.status(204).json();
   }
-
-  async sendEmailResetPassword(req: Request, res: Response) {
-    const { email } = req.body;
-    await this.userService.sendResetEmailPassword(email);
-    return res.json({ message: "Token send with sucess" });
-  }
-
-  async resetPassword(req: Request, res: Response) {
-    const { password } = req.body;
-    const { token } = req.params;
-
-    await this.userService.resetPassword(password, token);
-
-    return res.json({ message: "password change with sucess" });
-  }
 }
