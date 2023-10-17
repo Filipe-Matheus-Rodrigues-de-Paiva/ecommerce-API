@@ -49,6 +49,9 @@ export class User {
   @Column({ type: "varchar", length: 150 })
   confirm: string;
 
+  @Column({ type: "varchar", length: 150, nullable: true })
+  reset_token: string | null;
+
   @OneToOne(() => Address, (address) => address.user)
   address: Address;
 
