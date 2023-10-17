@@ -49,7 +49,7 @@ export class Announcement {
   @OneToMany(() => Image, (image) => image.announcement)
   images: Image[] | undefined | null;
 
-  @ManyToOne(() => User, (user) => user.announcements, { onDelete: "CASCADE" })
+  @ManyToOne(() => User, (user) => user.announcements)
   user: User;
 
   @OneToMany(() => Comment, (comment) => comment.announcement)

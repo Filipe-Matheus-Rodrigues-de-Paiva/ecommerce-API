@@ -15,10 +15,4 @@ type TUserUpdateRequest = DeepPartial<typeof userSchemaUpdateRequest>;
 
 type TUserUpdateReturn = z.infer<typeof userSchemaUpdateReturn>;
 
-export interface IEmailRequest {
-  to: string;
-  subject: string;
-  text: string;
-}
-
 export { TUser, TUserRequest, TUserUpdateRequest, TUserUpdateReturn };

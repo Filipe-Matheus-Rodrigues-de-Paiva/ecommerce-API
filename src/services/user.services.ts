@@ -3,6 +3,7 @@ import { AppDataSource } from "../data-source";
 import { Address, User } from "../entities";
 import AppError from "../error";
 import {
+  userRetrieveSchema,
   userSchemaReturn,
   userSchemaUpdateReturn,
 } from "../schemas/user.schema";
