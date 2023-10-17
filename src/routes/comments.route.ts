@@ -16,8 +16,6 @@ commentRoutes.get("/announcements/:announcementId", (req, res) =>
   commentController.read(req, res)
 );
 
-commentRoutes.get("", (req, res) => commentController.readAll(req, res));
-
 commentRoutes.patch("/:commentId", middlewares.verifyToken, (req, res) =>
   commentController.update(req, res)
 );

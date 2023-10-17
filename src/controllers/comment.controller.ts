@@ -24,11 +24,6 @@ export class CommentController {
     return response.status(200).json(commentsByAnnouncement);
   }
 
-  async readAll(request: Request, response: Response) {
-    const comments = await this.commentService.readAll();
-    return response.status(200).json(comments);
-  }
-
   async update(request: Request, response: Response) {
     const { sub } = response.locals.decoded;
 
