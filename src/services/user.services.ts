@@ -7,9 +7,7 @@ import {
   userSchemaUpdateReturn,
 } from "../schemas/user.schema";
 import { TUser, TUserRequest } from "../types/user.types";
-import { hash, hashSync } from "bcryptjs";
-import { randomUUID } from "crypto";
-import { emailService } from "../utils/sendEmail.utils";
+import { hash } from "bcryptjs";
 
 export class UserService {
   async create({ address, ...payload }: TUserRequest): Promise<TUser> {
@@ -104,47 +102,5 @@ export class UserService {
     if (!foundUser) throw new AppError("User not found", 404);
 
     await userRepo.remove(foundUser);
-  }
-
-  async sendResetEmailPassword(email: string) {
-    const userRepo = AppDataSource.getRepository(User);
-    const user = await userRepo.findOne({
-      where: { email },
-    });
-
-    if (!user) {
-      throw new AppError("user not found", 404);
-    }
-
-    const resetToken = randomUUID();
-
-    await userRepo.save({
-      ...user,
-      reset_token: resetToken,
-    });
-
-    const resetPasswordTemplate = emailService.resetPasswordTemplate(
-      email,
-      user.name,
-      resetToken
-    );
-    await emailService.sendEmail(resetPasswordTemplate);
-  }
-
-  async resetPassword(password: string, resetToken: string) {
-    const userRepo = AppDataSource.getRepository(User);
-    const user = await userRepo.findOne({
-      where: { reset_token: resetToken },
-    });
-
-    if (!user) {
-      throw new AppError("user not found", 404);
-    }
-
-    await userRepo.save({
-      ...user,
-      password: hashSync(password, 10),
-      reset_token: null,
-    });
   }
 }

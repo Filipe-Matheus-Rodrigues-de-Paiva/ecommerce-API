@@ -27,4 +27,6 @@ userRoutes.delete(
   (req, res) => userController.destroy(req, res)
 );
 
+// add routes for reset password and send email
+
 export default userRoutes;
