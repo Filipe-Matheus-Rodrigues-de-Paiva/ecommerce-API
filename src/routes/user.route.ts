@@ -18,13 +18,13 @@ userRoutes.patch(
   (req, res) => userController.update(req, res)
 );
 
+userRoutes.get("", (req, res) => userController.read(req, res));
+
 userRoutes.delete(
   "/:userId",
   middlewares.verifyToken,
   middlewares.verifyOwnership,
   (req, res) => userController.destroy(req, res)
 );
-
-// add routes for reset password and send email
 
 export default userRoutes;
